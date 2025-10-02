@@ -1,0 +1,1 @@
+import{J as e}from"./chunk-KH5FCWQU.js";var n=class o{sound=JSON.parse(localStorage.getItem("sound")||"null")||{name:"M\xFAsica dos Campe\xF5es",src:"audios/campeoes.mp3"};setSound(t){this.sound=t}getSound(){return this.sound}static \u0275fac=function(r){return new(r||o)};static \u0275prov=e({token:o,factory:o.\u0275fac,providedIn:"root"})};export{n as a};
