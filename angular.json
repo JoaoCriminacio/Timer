@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cronometro": {
+    "timer": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/cronometro",
+            "outputPath": "dist/timer",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "cronometro:build:production"
+              "buildTarget": "timer:build:production"
             },
             "development": {
-              "buildTarget": "cronometro:build:development"
+              "buildTarget": "timer:build:development"
             }
           },
           "defaultConfiguration": "development"

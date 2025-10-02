@@ -1,0 +1,42 @@
+<main class="w-full h-full flex flex-col gap-y-8 items-center justify-center p-2 sm:p-0 text-white">
+  <div class="text-center flex flex-col gap-y-2">
+    <h1 class="font-bold text-3xl">Timer</h1>
+    <p class="text-sm">Dê dois cliques sobre o horário para altera-lo</p>
+  </div>
+
+  @if (!editing) {
+    <span
+      class="text-5xl font-mono cursor-pointer select-none"
+      (click)="toggleEdit()">
+    {{ formattedTime }}
+  </span>
+  } @else {
+    <div class="flex flex-col items-center gap-4">
+      <input
+        type="text"
+        class="text-3xl font-mono text-center border rounded px-2 py-1 w-[70%]"
+        [value]="formattedTime"
+        #timeInput />
+
+      <div class="flex gap-4">
+        <button class="px-4 py-2 rounded bg-green-400 text-white cursor-pointer hover:bg-green-500 transition"
+                (click)="setTimeManually(timeInput.value)">Confirmar</button>
+        <button class="px-4 py-2 rounded bg-gray-400 text-white cursor-pointer hover:bg-gray-500 transition"
+                (click)="toggleEdit()">Cancelar</button>
+      </div>
+    </div>
+  }
+
+  <div class="flex gap-8 mt-6">
+    <button class="cursor-pointer" (click)="playing ? stop() : start()">
+      @if (playing) {
+        <img src="icons/pause.png" alt="Play" class="w-7 h-7"/>
+      } @else {
+        <img src="icons/play.png" alt="Pause" class="w-7 h-7"/>
+      }
+    </button>
+    <button class="cursor-pointer" (click)="reset()">
+      <img src="icons/replay.png" alt="Replay" class="w-7 h-7"/>
+    </button>
+  </div>
+</main>

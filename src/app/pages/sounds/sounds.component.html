@@ -1,0 +1,39 @@
+<main class="w-full h-full flex flex-col gap-y-8 items-center justify-center p-2 sm:p-0 text-white">
+  <div class="text-center flex flex-col gap-y-2">
+    <h1 class="font-bold text-3xl">Escolha Seu Áudio</h1>
+    <p class="text-sm">Este som será tocado quando o timer terminar</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    @for (sound of sounds; track sound) {
+      <button class="w-full p-3 flex items-center justify-between gap-3 cursor-pointer rounded-full transition"
+              [ngClass]="{
+                'bg-cyan-400': previewSound?.src === sound.src || selectedSound?.src === sound.src,
+                'bg-white/20 hover:bg-white/30': previewSound?.src !== sound.src
+              }"
+              (click)="playSound(sound)">
+        <span>{{ sound.name }}</span>
+        <img src="icons/check.png" alt="Selecionado" class="w-5 h-5" [ngClass]="{ 'invisible': selectedSound?.src !== sound.src }"/>
+      </button>
+    }
+  </div>
+
+  <div class="text-center flex flex-col gap-y-4">
+    <button class="w-40 px-4 py-2 rounded bg-green-400"
+            [ngClass]="{ 'opacity-50 cursor-not-allowed': !previewSound,
+                       'cursor-pointer hover:bg-green-500 transition': previewSound}"
+            [disabled]="!previewSound"
+            (click)="selectSound(previewSound)">
+      Selecionar Áudio
+    </button>
+
+    <button class="self-center cursor-pointer"
+            (click)="soundAction(playing ? 'pause' : 'play')">
+      @if (playing) {
+        <img src="icons/pause.png" alt="Play" class="w-7 h-7"/>
+      } @else {
+        <img src="icons/play.png" alt="Pause" class="w-7 h-7"/>
+      }
+    </button>
+  </div>
+</main>

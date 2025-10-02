@@ -1,0 +1,38 @@
+<aside class="flex h-full">
+  <div [ngClass]="isOpened()"
+       class="flex flex-col h-full sidenav bg-white/20 backdrop-blur-md shadow-lg transition-all duration-300">
+
+    <button (click)="toggle()"
+            class="p-2 m-2 mb-0 transition cursor-pointer">
+      @if (opened) {
+        <img src="icons/arrow-left.png" alt="Fechar" class="w-4 h-4 sm:w-5 sm:h-5" />
+      } @else {
+        <img src="icons/arrow-right.png" alt="Menu" class="w-4 h-4 sm:w-5 sm:h-5" />
+      }
+    </button>
+
+    <nav class="flex flex-col gap-2 mt-4">
+      <button routerLink="/timer"
+              routerLinkActive="active"
+              class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-white/30 transition">
+        <img src="icons/clock.png" alt="Relógio" class="w-4 h-4 sm:w-5 sm:h-5" />
+        @if (opened) {
+          <span class="text-white font-medium">Timer</span>
+        }
+      </button>
+
+      <button routerLink="/sounds"
+              routerLinkActive="active"
+              class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-white/30 transition">
+        <img src="icons/sound.png" alt="Sons" class="w-4 h-4 sm:w-5 sm:h-5" />
+        @if (opened) {
+          <span class="text-white font-medium">Sons</span>
+        }
+      </button>
+    </nav>
+  </div>
+
+  <div class="flex-grow">
+    <ng-content></ng-content>
+  </div>
+</aside>
