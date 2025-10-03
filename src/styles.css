@@ -10,3 +10,28 @@ body {
   background: #3090d9;
   background: linear-gradient(90deg,rgba(48, 144, 217, 1) 0%, rgba(91, 162, 212, 1) 50%, rgba(129, 186, 219, 1) 100%);
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  font-size: 0.8rem;
+  width: 6rem;
+  background-color: black;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 65%;
+  margin-left: -3.5rem;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

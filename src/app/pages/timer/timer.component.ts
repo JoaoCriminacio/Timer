@@ -16,8 +16,9 @@ export class TimerComponent implements OnInit, OnDestroy {
     protected selectedTime!: number;
     protected audio!: HTMLAudioElement;
     protected timer: any = null;
-    protected editing: boolean = false;
-    protected playing: boolean = false;
+    protected isEditing: boolean = false;
+    protected isTimerPlaying: boolean = false;
+    protected isSoundPlaying: boolean = false;
 
     constructor (protected timerService: TimerService,
                  protected soundService: SoundService) {}
@@ -29,7 +30,8 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-      this.stop();
+      this.stopTimer();
+      this.stopMusic();
     }
 
     get formattedTime(): string {
@@ -40,14 +42,14 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
 
     protected toggleEdit() {
-      this.editing = !this.editing;
+      this.isEditing = !this.isEditing;
     }
 
     protected setTimeManually(value: string) {
       const [hh, mm, ss] = value.split(':').map(v => parseInt(v, 10) || 0);
       this.timeInSeconds = hh * 3600 + mm * 60 + ss;
       this.setTimeVariables();
-      this.editing = false;
+      this.isEditing = false;
     }
 
     protected start() {
@@ -56,29 +58,35 @@ export class TimerComponent implements OnInit, OnDestroy {
         if (this.timeInSeconds > 0) {
           this.timeInSeconds--;
           this.timerService.setTimer(this.timeInSeconds);
-          this.playing = true;
+          this.isTimerPlaying = true;
         } else {
-          this.stop();
+          this.stopTimer();
           this.playSound();
-          this.playing = false;
+          this.isTimerPlaying = false;
         }
       }, 1000);
     }
 
     protected reset() {
-      this.stop();
+      this.stopTimer();
       this.timeInSeconds = this.selectedTime;
       this.setTimeVariables();
       this.audio.pause();
     }
 
-    protected stop() {
+    protected stopTimer() {
       clearInterval(this.timer);
       this.timer = null;
-      this.playing = false;
+      this.isTimerPlaying = false;
+    }
+
+    protected stopMusic() {
+      this.audio.pause();
+      this.isSoundPlaying = false;
     }
 
     private playSound() {
+      this.isSoundPlaying = true;
       let count = 0;
 
       const playAgain = () => {
@@ -86,6 +94,8 @@ export class TimerComponent implements OnInit, OnDestroy {
           this.audio.currentTime = 0;
           this.audio.play();
           count++;
+        } else {
+          this.isSoundPlaying = false;
         }
       };
 

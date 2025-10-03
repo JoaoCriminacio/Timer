@@ -2,7 +2,7 @@
   <div class="text-center flex flex-col gap-y-2">
     <h1 class="font-bold text-3xl">Timer</h1>
     <p class="text-sm">
-      @if (!playing) {
+      @if (!isTimerPlaying) {
         Clique sobre o horário para altera-lo
       } @else {
         Pare o timer para alterar o horário
@@ -10,12 +10,12 @@
     </p>
   </div>
 
-  @if (!editing) {
+  @if (!isEditing) {
     <span
       class="text-5xl font-mono cursor-pointer select-none"
-      [ngClass]="{'cursor-not-allowed': playing,
-                  'cursor-pointer': !playing}"
-      (click)="!playing && toggleEdit()">
+      [ngClass]="{'cursor-not-allowed': isTimerPlaying,
+                  'cursor-pointer': !isTimerPlaying}"
+      (click)="!isTimerPlaying && toggleEdit()">
     {{ formattedTime }}
     </span>
   } @else {
@@ -24,27 +24,43 @@
         type="text"
         class="text-3xl font-mono text-center border rounded px-2 py-1 w-[70%]"
         [value]="formattedTime"
+        (keyup.enter)="setTimeManually(timeInput.value)"
         #timeInput />
 
       <div class="flex gap-4">
         <button class="px-4 py-2 rounded bg-green-400 text-white cursor-pointer hover:bg-green-500 transition"
-                (click)="setTimeManually(timeInput.value)">Confirmar</button>
+                (click)="setTimeManually(timeInput.value)">Confirmar
+        </button>
+
         <button class="px-4 py-2 rounded bg-gray-400 text-white cursor-pointer hover:bg-gray-500 transition"
-                (click)="toggleEdit()">Cancelar</button>
+                (click)="toggleEdit()">Cancelar
+        </button>
       </div>
     </div>
   }
 
   <div class="flex gap-8 mt-6">
-    <button class="cursor-pointer" (click)="playing ? stop() : start()">
-      @if (playing) {
+    <button [ngClass]="{'cursor-pointer': isSoundPlaying,
+                        'cursor-not-allowed opacity-50' : !isSoundPlaying}"
+            class="tooltip"
+            (click)="stopMusic()">
+      <img src="icons/stop.png" alt="Replay" class="w-7 h-7"/>
+      <span class="tooltiptext mt-1">Parar Música</span>
+    </button>
+
+    <button class="cursor-pointer tooltip" (click)="isTimerPlaying ? stopTimer() : start()">
+      @if (isTimerPlaying) {
         <img src="icons/pause.png" alt="Play" class="w-7 h-7"/>
+        <span class="tooltiptext mt-1">Parar Timer</span>
       } @else {
         <img src="icons/play.png" alt="Pause" class="w-7 h-7"/>
+        <span class="tooltiptext mt-1">Iniciar Timer</span>
       }
     </button>
-    <button class="cursor-pointer" (click)="reset()">
+
+    <button class="cursor-pointer tooltip" (click)="reset()">
       <img src="icons/replay.png" alt="Replay" class="w-7 h-7"/>
+      <span class="tooltiptext mt-1">Resetar Timer</span>
     </button>
   </div>
 </main>
