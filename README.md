@@ -1,7 +1,7 @@
 <h1 align="center"> Timer </h1>
 
 <h2>Timer</h2>
-<img width="1920" height="945" alt="image" src="https://github.com/user-attachments/assets/457420be-a9fc-44dd-b037-73d737689638" />
+<img width="1920" height="945" alt="image" src="https://github.com/user-attachments/assets/11373877-8fe6-4f7f-97ed-fadffebadc14" />
 
 <h2>Seleção de Áudios</h2>
 <img width="1920" height="945" alt="image" src="https://github.com/user-attachments/assets/613eb356-1366-4704-8194-dd406d6f21ef" />
