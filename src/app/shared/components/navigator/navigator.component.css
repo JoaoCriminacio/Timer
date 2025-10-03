@@ -14,3 +14,9 @@
   background-color: rgba(255, 255, 255, 0.3);
   border-left: 4px solid white;
 }
+
+@media (max-width: 40rem) {
+  .opened {
+    width: 7rem;
+  }
+}

@@ -1,15 +1,23 @@
 <main class="w-full h-full flex flex-col gap-y-8 items-center justify-center p-2 sm:p-0 text-white">
   <div class="text-center flex flex-col gap-y-2">
     <h1 class="font-bold text-3xl">Timer</h1>
-    <p class="text-sm">Dê dois cliques sobre o horário para altera-lo</p>
+    <p class="text-sm">
+      @if (!playing) {
+        Clique sobre o horário para altera-lo
+      } @else {
+        Pare o timer para alterar o horário
+      }
+    </p>
   </div>
 
   @if (!editing) {
     <span
       class="text-5xl font-mono cursor-pointer select-none"
-      (click)="toggleEdit()">
+      [ngClass]="{'cursor-not-allowed': playing,
+                  'cursor-pointer': !playing}"
+      (click)="!playing && toggleEdit()">
     {{ formattedTime }}
-  </span>
+    </span>
   } @else {
     <div class="flex flex-col items-center gap-4">
       <input

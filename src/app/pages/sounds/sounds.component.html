@@ -8,12 +8,12 @@
     @for (sound of sounds; track sound) {
       <button class="w-full p-3 flex items-center justify-between gap-3 cursor-pointer rounded-full transition"
               [ngClass]="{
-                'bg-cyan-400': previewSound?.src === sound.src || selectedSound?.src === sound.src,
-                'bg-white/20 hover:bg-white/30': previewSound?.src !== sound.src
+                'bg-cyan-400': previewSound.src === sound.src || selectedSound.src === sound.src,
+                'bg-white/20 hover:bg-white/30': previewSound.src !== sound.src
               }"
               (click)="playSound(sound)">
         <span>{{ sound.name }}</span>
-        <img src="icons/check.png" alt="Selecionado" class="w-5 h-5" [ngClass]="{ 'invisible': selectedSound?.src !== sound.src }"/>
+        <img src="icons/check.png" alt="Selecionado" class="w-5 h-5" [ngClass]="{ 'invisible': selectedSound.src !== sound.src }"/>
       </button>
     }
   </div>

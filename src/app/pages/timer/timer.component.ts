@@ -1,10 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SoundService} from '../../shared/services/sound.service';
 import {TimerService} from '../../shared/services/timer.service';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-timer',
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.css'
 })
