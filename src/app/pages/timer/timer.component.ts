@@ -31,7 +31,7 @@ export class TimerComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
       this.stopTimer();
-      this.stopMusic();
+      this.stopSound();
     }
 
     get formattedTime(): string {
@@ -80,7 +80,7 @@ export class TimerComponent implements OnInit, OnDestroy {
       this.isTimerPlaying = false;
     }
 
-    protected stopMusic() {
+    protected stopSound() {
       this.audio.pause();
       this.isSoundPlaying = false;
     }
