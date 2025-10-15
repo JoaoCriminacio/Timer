@@ -46,8 +46,45 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
 
     protected setTimeManually(value: string) {
-      const [hh, mm, ss] = value.split(':').map(v => parseInt(v, 10) || 0);
-      this.timeInSeconds = hh * 3600 + mm * 60 + ss;
+      value = value.trim();
+
+      if (/[a-zA-Z]/.test(value)) {
+        this.timeInSeconds = this.selectedTime;
+        this.setTimeVariables();
+        this.isEditing = false;
+        return;
+      }
+
+      if (/^\d+$/.test(value)) {
+        const seconds = parseInt(value, 10);
+        if (!isNaN(seconds)) {
+          this.timeInSeconds = seconds;
+          this.setTimeVariables();
+        } else {
+          this.timeInSeconds = this.selectedTime;
+          this.setTimeVariables();
+        }
+
+        this.isEditing = false;
+        return;
+      }
+
+      if (value.includes(':')) {
+        const parts = value.split(':').map(v => parseInt(v, 10) || 0);
+
+        let hh = 0, mm = 0, ss = 0;
+
+        if (parts.length === 3) [hh, mm, ss] = parts;
+        else if (parts.length === 2) [mm, ss] = parts;
+        else if (parts.length === 1) [ss] = parts;
+
+        this.timeInSeconds = hh * 3600 + mm * 60 + ss;
+        this.setTimeVariables();
+        this.isEditing = false;
+        return;
+      }
+
+      this.timeInSeconds = this.selectedTime;
       this.setTimeVariables();
       this.isEditing = false;
     }
